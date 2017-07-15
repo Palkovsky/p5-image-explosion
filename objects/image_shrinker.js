@@ -6,20 +6,25 @@ var ImageShrinker = function(img, pos){
 	this.height = this.img.height;
 	this.pos = pos;
 
+
 	var interval;
 
-	this.shrink = function(on_finish){
+	this.shrink = function(on_finish, shrink_value){
+
+		if(shrink_value === undefined){
+			shrink_value = 5;
+		}
 
 		var self = this;
+		var widthHeightRatio = this.width/this.height;
 
 		interval = setInterval(function(){
-			self.width -= 5;
-			self.height -= 5;
+			self.width -= shrink_value * widthHeightRatio;
+			self.height -= shrink_value;
 			if(self.width <= 0 || self.height <= 0){
 				on_finish();
 				clearInterval(interval);
 			}
-			console.log("A");
 		}, 3);
 	}
 

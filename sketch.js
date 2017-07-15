@@ -13,7 +13,7 @@ var imageCenter;
 var colors;
 
 function preload(){
-	img = loadImage("images/3.png");
+	img = loadImage("images/7.jpg");
 	imageCenter = createVector(WIDTH/2, HEIGHT/2);
 }
 
@@ -24,13 +24,14 @@ function setup(){
 	//Extract particle colors from image
 	extractor = new Extractor();
 	colors = extractor.getColors(extractor.extractBoxes(img, createVector(10, 10)));
+	colors = shuffle(colors);
 
 	shrinker = new ImageShrinker(img, imageCenter.copy());
 	splasher = new Splasher(imageCenter.copy(), colors);
 }
 
 function draw(){
-	background(255);
+	background(0);
 	
 	shrinker.draw();
 	splasher.update();
@@ -40,7 +41,9 @@ function draw(){
 
 
 function mouseClicked(){
-	shrinker.shrink(function(){
-		splasher.restart();
-	});
+	if(shrinker){
+		shrinker.shrink(function(){
+			splasher.restart();
+		});
+	}
 }
