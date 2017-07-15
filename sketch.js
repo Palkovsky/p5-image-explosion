@@ -5,32 +5,42 @@ var HEIGHT = window.innerHeight;
 //Objects
 var img;
 var extractor;
+var shrinker;
+var splasher;
+var imageCenter;
 
 //Lists
 var colors;
 
 function preload(){
-	img = loadImage("images/1.png");
-	extractor = new Extractor();
+	img = loadImage("images/3.png");
+	imageCenter = createVector(WIDTH/2, HEIGHT/2);
 }
 
 function setup(){
 	pixelDensity(1);
 	createCanvas(WIDTH, HEIGHT);
+
+	//Extract particle colors from image
+	extractor = new Extractor();
 	colors = extractor.getColors(extractor.extractBoxes(img, createVector(10, 10)));
+
+	shrinker = new ImageShrinker(img, imageCenter.copy());
+	splasher = new Splasher(imageCenter.copy(), colors);
 }
 
 function draw(){
 	background(255);
-	image(img, WIDTH/2 - img.width/2, HEIGHT/2 - img.height/2);
+	
+	shrinker.draw();
+	splasher.update();
+	splasher.draw();
+
+}
 
 
-
-	for(var i = 1; i <= colors.length; i++){
-		var color = colors[i - 1];
-		push();
-		fill(color);
-		ellipse(i * 7, 20, 5);
-		pop();
-	}
+function mouseClicked(){
+	shrinker.shrink(function(){
+		splasher.restart();
+	});
 }
