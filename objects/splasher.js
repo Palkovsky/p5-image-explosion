@@ -1,0 +1,3 @@
+var Splasher = function(img){
+
+}
