@@ -1,7 +1,7 @@
 var Particle = function(x, y, attributes){
 
 	this.pos = createVector(x, y);
-	this.vel = createVector(random(-5, 5), random(-5, 5));
+	this.vel = createVector(0, 0);
 	this.acc = createVector(0, 0);
 	this.attributes = attributes;
 
@@ -15,7 +15,14 @@ var Particle = function(x, y, attributes){
 		drawer(this);
 	}
 
-	this.applyForce = function(force){
-		this.acc.add(force);
+	this.applyForces = function(forces){
+		if(!Array.isArray(forces)){
+			this.acc.add(forces);
+		}else{
+			for(var i = 0; i < forces.length; i++){
+				this.acc.add(forces[i]);
+			}
+		}
+		
 	}
 }

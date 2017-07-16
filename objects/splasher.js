@@ -6,13 +6,28 @@ var Splasher = function(pos, colors){
 	this.active = false;
 
 	this.init = function(){
+
+
+		var xBaseForce = 10;
+		var yBaseForce = 20;
+
+		var yOff = 0;
+		var xOff = 0;
+
 		for(var i = 0; i < this.colors.length; i++){
-			this.particles.push(new Particle(this.startPos.x, this.startPos.y,
+			
+			var particle = new Particle(this.startPos.x, this.startPos.y,
 			 	{
 			 		radius : random(5, 15),
 			 		color : colors[i]
 			 	}
-			 ));
+			);
+
+			yOff += 0.5;
+			xOff += 0.7;
+
+			particle.applyForces(createVector(map(noise(xOff), 0, 1, -1, 1) * xBaseForce, -noise(yOff) * yBaseForce));
+			this.particles.push(particle);
 		}
 	}
 
@@ -21,6 +36,9 @@ var Splasher = function(pos, colors){
 	this.update = function(){
 		if(this.active){
 			for(var i = 0; i < this.particles.length; i++){
+				this.particles[i].applyForces([
+					createVector(0, .3) //gravity
+				]); 
 				this.particles[i].update();
 			}
 		}

@@ -13,7 +13,7 @@ var imageCenter;
 var colors;
 
 function preload(){
-	img = loadImage("images/7.jpg");
+	img = loadImage("images/1.png");
 	imageCenter = createVector(WIDTH/2, HEIGHT/2);
 }
 

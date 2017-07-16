@@ -6,7 +6,6 @@ var ImageShrinker = function(img, pos){
 	this.height = this.img.height;
 	this.pos = pos;
 
-
 	var interval;
 
 	this.shrink = function(on_finish, shrink_value){
@@ -32,5 +31,9 @@ var ImageShrinker = function(img, pos){
 		if(this.width > 0 && this.height > 0){
 			image(img, imageCenter.x - this.width/2, imageCenter.y - this.height/2, this.width, this.height);
 		}
+	}
+
+	this.reload = function(){
+		
 	}
 }
