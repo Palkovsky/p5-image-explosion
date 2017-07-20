@@ -19,7 +19,7 @@ var Splasher = function(pos, colors){
 			var particle = new Particle(this.startPos.x, this.startPos.y,
 			 	{
 			 		radius : random(5, 15),
-			 		color : colors[i]
+			 		color : colors[i].slice()
 			 	}
 			);
 
@@ -37,8 +37,9 @@ var Splasher = function(pos, colors){
 		if(this.active){
 			for(var i = 0; i < this.particles.length; i++){
 				this.particles[i].applyForces([
-					createVector(0, .3) //gravity
+					createVector(0, .03 * this.particles[i].attributes.radius) //gravity
 				]); 
+				//this.particles[i].attributes.color[3] -= 2;
 				this.particles[i].update();
 			}
 		}
@@ -53,7 +54,7 @@ var Splasher = function(pos, colors){
 	}
 
 	/*
-		Function passed as drawing function for particle draw method.
+		Function passed as a drawer for particle draw method.
 	*/
 	var drawParticle = function(particle){
 		push();

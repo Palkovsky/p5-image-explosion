@@ -35,4 +35,14 @@ var Extractor = function(){
 		}
 		return colors;
 	}
+
+	/*
+		Find kernel size that usage of which will give us boxes_number of boxes.
+
+		Comment: It needs fixing. It just aproximates rect dimension to square.
+	*/
+	this.calculateKernelSize = function(img, boxes_number){
+		var dim = round(sqrt((img.width * img.height) / boxes_number));
+		return createVector(dim, dim);
+	}
 }
